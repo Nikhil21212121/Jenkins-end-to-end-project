@@ -91,9 +91,9 @@ argocd app create spring-boot-app --repo https://github.com/Nikhil21212121/Jenki
 This defines the Jenkins pipeline stages:
 ```groovy
 pipeline {
-  agent { docker { image 'sachin2223/spring-boot-image:latest' } }
+  agent { docker { image 'nikhil212121/argo-jenkins-cicd:latest' } }
   stages {
-    stage('Checkout') { steps { git branch: 'main', url: 'https://github.com/sachin21212121/jenkins-end-to-end-cicd-using-argocd.git' } }
+    stage('Checkout') { steps { git branch: 'main', url: 'https://github.com/Nikhil21212121/Jenkins-end-to-end-project.git' } }
     stage('Build and Test') { steps { sh 'mvn clean package' } }
     stage('Static Code Analysis') { steps { sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN' } }
     stage('Build and Push Docker Image') { steps { sh 'docker build -t nikhil212121/argo-jenkins-cicd:$BUILD_NUMBER . && docker push nikhil212121/argo-jenkins-cicd:$BUILD_NUMBER' } }
