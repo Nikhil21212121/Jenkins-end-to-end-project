@@ -42,8 +42,8 @@ Make sure you have the following installed:
 
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/sachin21212121/jenkins-end-to-end-cicd-using-argocd.git
-cd jenkins-end-to-end-cicd-using-argocd
+git clone https://github.com/Nikhil21212121/Jenkins-end-to-end-project.git
+cd jenkins-end-to-end-project
 ```
 
 ### 2️⃣ Build the Spring Boot Application
@@ -59,9 +59,9 @@ mvn sonar:sonar -Dsonar.login=<YOUR_SONARQUBE_TOKEN> -Dsonar.host.url=http://34.
 
 ### 4️⃣ Build & Push Docker Image
 ```sh
-docker build -t sachin2223/spring-boot-image:latest .
+docker build -t nikhil212121/argo-jenkins-cicd:latest .
 docker login
-docker push sachin2223/spring-boot-image:latest
+docker push nikhil212121/argo-jenkins-cicd:latest
 ```
 
 ### 5️⃣ Deploy to Kubernetes
@@ -72,7 +72,7 @@ kubectl apply -f java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/serv
 
 ### 6️⃣ Configure ArgoCD
 ```sh
-argocd app create spring-boot-app --repo https://github.com/sachin21212121/jenkins-end-to-end-cicd-using-argocd.git \
+argocd app create spring-boot-app --repo https://github.com/Nikhil21212121/Jenkins-end-to-end-project \
   --path java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace default
@@ -96,7 +96,7 @@ pipeline {
     stage('Checkout') { steps { git branch: 'main', url: 'https://github.com/sachin21212121/jenkins-end-to-end-cicd-using-argocd.git' } }
     stage('Build and Test') { steps { sh 'mvn clean package' } }
     stage('Static Code Analysis') { steps { sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN' } }
-    stage('Build and Push Docker Image') { steps { sh 'docker build -t sachin2223/spring-boot-image:$BUILD_NUMBER . && docker push sachin2223/spring-boot-image:$BUILD_NUMBER' } }
+    stage('Build and Push Docker Image') { steps { sh 'docker build -t nikhil212121/argo-jenkins-cicd:$BUILD_NUMBER . && docker push nikhil212121/argo-jenkins-cicd:$BUILD_NUMBER' } }
     stage('Update Deployment File') { steps { sh 'sed -i "s/replaceImageTag/$BUILD_NUMBER/g" deployment.yml && git commit -am "Updated image tag" && git push' } }
   }
 }
